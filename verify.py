@@ -40,6 +40,7 @@ SPEC = [
     ("02-poster", 420, 594),     # 主视觉 A2
     ("03-passport", 297, 210),   # 观赛护照 A4 横
     ("04-cards", 297, 210),      # 收藏卡牌 A4 横
+    ("05-postcard", 297, 210),   # 明信片正反 A4 横
 ]
 
 LAB = lambda rgb: (rgb[0] / 255.0, rgb[1] / 255.0, rgb[2] / 255.0)
@@ -140,7 +141,7 @@ def main():
     ck(html.count('class="stamp"') == 13, "AC-09 小版张 13 枚", str(html.count('class="stamp"')))
     ck(html.count("十三城 · 十三印") == 1, "AC-09 过桥含十三印块")
     hp = open(os.path.join(ROOT, "build", "03-passport.html"), encoding="utf-8").read()
-    ck(hp.count("輪次") == 1 and hp.count("/13") >= 0, "AC-09 护照表头存在")
+    ck(hp.count("轮次") == 1 and hp.count("观赛护照") >= 1 and "觀" not in hp, "AC-09 护照表头存在且无繁体残留")
     hc = open(os.path.join(ROOT, "build", "04-cards.html"), encoding="utf-8").read()
     ck(hc.count("CITY CARD · 2026") == 3, "AC-09 卡牌 3 张", str(hc.count("CITY CARD · 2026")))
 

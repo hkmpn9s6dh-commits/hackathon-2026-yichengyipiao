@@ -39,6 +39,8 @@ def main():
         jobs["03-passport"] = (design2.passport, 297, 210)
     if which in ("all", "cards"):
         jobs["04-cards"] = (design2.cards, 297, 210)
+    if which in ("all", "postcard"):
+        jobs["05-postcard"] = (design2.postcards, 297, 210)
     for name, (fn, w, h) in jobs.items():
         print("render", name)
         render(name, fn(), w, h)

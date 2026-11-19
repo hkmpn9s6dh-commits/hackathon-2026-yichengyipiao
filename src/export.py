@@ -63,7 +63,8 @@ def main():
     for d in (SUB, SRC):
         os.makedirs(d, exist_ok=True)
     jobs = [("01-sheet", D.sheet), ("02-poster", design2.poster),
-            ("03-passport", design2.passport), ("04-cards", design2.cards)]
+            ("03-passport", design2.passport), ("04-cards", design2.cards),
+            ("05-postcard", design2.postcards)]
     for name, fn in jobs:
         html = fn()
         svg = O.outline(html_to_svg(html))

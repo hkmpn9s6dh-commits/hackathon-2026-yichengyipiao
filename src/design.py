@@ -224,8 +224,15 @@ def _bridge(i, x, y, S):
 <text x="5" y="52" font-family="{SANS_M}" font-size="2.9" fill="{INK_SOFT}">一场一城，一城一票；</text>
 <text x="5" y="56.6" font-family="{SANS_M}" font-size="2.9" fill="{INK_SOFT}">十三枚齐，走遍江苏。</text>'''
     elif i == 1:
-        seals = "".join(seal(4.6 + (k % 4) * 12.2, 14 + (k // 4) * 12.2, 9.6, ABBR[c["id"]])
-                        for k, c in enumerate(CITIES))
+        rows = [4, 5, 4]
+        k = 0
+        seals = ""
+        for r, n in enumerate(rows):
+            w_row = (n - 1) * 12.2 + 9.6
+            x0 = (60 - w_row) / 2
+            for j in range(n):
+                c = CITIES[k]; k += 1
+                seals += seal(x0 + j * 12.2, 14 + r * 12.2, 9.6, ABBR[c["id"]])
         body = f'<text x="4.6" y="8.6" font-family="{SANS}" font-size="2.6" fill="{INK_SOFT}" letter-spacing="0.4">十三城 · 十三印</text>' + seals
     else:
         body = f'''<text x="5" y="8.6" font-family="{SANS}" font-size="2.6" fill="{INK_SOFT}" letter-spacing="0.6">SPECIMEN · 非邮资凭证</text>

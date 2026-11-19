@@ -54,9 +54,9 @@ def poster():
         ny += 21
     # 系列其余三张，横排做样本
     for k, idx in enumerate([4, 8, 12]):
-        p.append(f'<g transform="translate({x0 + k*58},{top + 120}) rotate({[-2,0,2][k]})">'
-                 f'<g transform="scale(0.9)">{D.stamp(CITIES[idx], 60, f"ps{k}", fill=PAPER)}</g></g>')
-    p.append(f'<text x="{x0}" y="{top + 192}" font-family="{SANS_M}" font-size="3.6" fill="#A9A392">苏州 · 盐城 · 宿迁　（同版式延展样本）</text>')
+        p.append(f'<g transform="translate({x0 + k*60},{top + 116}) rotate({[-2,0,2][k]})">'
+                 f'<g transform="scale(0.94)">{D.stamp(CITIES[idx], 60, f"ps{k}", fill=PAPER)}</g></g>')
+    p.append(f'<text x="{x0}" y="{top + 196}" font-family="{SANS_M}" font-size="4.4" fill="#BDB6A4" letter-spacing="0.3">苏州 · 盐城 · 宿迁　同版式延展样本</text>')
 
     # 底部十三印
     by = 470
@@ -70,10 +70,12 @@ def poster():
         f'<text x="36" y="562" font-family="{SANS_M}" font-size="4.8" fill="#A9A392">系列套图（二）　主视觉海报　A2 / 420×594mm / 300dpi</text>',
         f'<text x="384" y="562" font-family="{SANS}" font-size="4.8" fill="#A9A392" text-anchor="end">JSCL-2026-IP-02</text>',
     ]
+    p.append(f'<rect x="0" y="0" width="{W}" height="{H}" filter="url(#grain)" opacity="0.05"/>')
     defs = ("<defs>"
             + "".join(D.perf_mask(60, 75, f"ps{i}") for i in range(3))
             + D.perf_mask(150, 187.5, "ph")
-            + '<filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="2.2"/></filter>'
+            + '<filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="3.2"/></filter>'
+            + '<filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7"/><feColorMatrix type="saturate" values="0"/></filter>'
             + "</defs>")
     return D.html_page(D.svg_open(W, H) + defs + "".join(p) + "</svg>", W, H)
 
@@ -85,7 +87,7 @@ def passport():
     p.append(f'<line x1="148.5" y1="0" x2="148.5" y2="{H}" stroke="{INK}" stroke-width="0.15" opacity="0.25"/>')
     p += [
         f'<text x="22" y="26" font-family="{SANS_M}" font-size="3.4" fill="{INK_SOFT}" letter-spacing="1.6">JIANGSU CITY FOOTBALL LEAGUE</text>',
-        f'<text x="20" y="58" font-family="{SERIF}" font-size="24" fill="{INK}" letter-spacing="2.2">觀賽護照</text>',
+        f'<text x="20" y="58" font-family="{SERIF}" font-size="24" fill="{INK}" letter-spacing="2.2">观赛护照</text>',
         f'<text x="22" y="70" font-family="{SANS}" font-size="4.0" fill="{INK_SOFT}" letter-spacing="3.0">MATCH PASSPORT</text>',
         f'<line x1="22" y1="78" x2="128" y2="78" stroke="{RED}" stroke-width="0.7"/>',
         f'<text x="22" y="88" font-family="{SANS_M}" font-size="3.4" fill="{INK_SOFT}">持照人 / HOLDER</text>',
@@ -96,19 +98,23 @@ def passport():
         f'<text x="22" y="126" font-family="{SANS_M}" font-size="3.3" fill="{INK_SOFT}">每赴一城，盖一印；十三枚齐，即为通关。</text>',
     ]
     for i, c in enumerate(CITIES):
-        col, row = i % 5, i // 5
-        x = 22 + col * 25.4
+        row = i // 5
+        n_in_row = min(5, len(CITIES) - row * 5)
+        col = i % 5
+        row_w = (n_in_row - 1) * 25.4 + 17.2
+        x = 22 + (144 - row_w) / 2 + col * 25.4
         y = 142 + row * 25
-        p.append(f'<circle cx="{x+9}" cy="{y+8}" r="8.6" fill="none" stroke="{c["color"]}" stroke-width="0.45" opacity="0.85"/>')
-        p.append(f'<text x="{x+9}" y="{y+5.2}" font-family="{SANS_M}" font-size="2.1" fill="{c["color"]}" text-anchor="middle">{c["name"]}</text>')
-        p.append(f'<text x="{x+9}" y="{y+9.4}" font-family="{SERIF}" font-size="5.6" fill="{c["color"]}" text-anchor="middle">{ABBR[c["id"]]}</text>')
-        p.append(f'<line x1="{x+3}" y1="{y+12.6}" x2="{x+15}" y2="{y+12.6}" stroke="{c["color"]}" stroke-width="0.25" opacity="0.55"/>')
+        p.append(f'<circle cx="{x+9}" cy="{y+8}" r="8.6" fill="none" stroke="{RED}" stroke-width="0.5" opacity="0.8"/>')
+        p.append(f'<circle cx="{x+9}" cy="{y+8}" r="7.4" fill="none" stroke="{RED}" stroke-width="0.22" opacity="0.5"/>')
+        p.append(f'<text x="{x+9}" y="{y+5.6}" font-family="{SANS_M}" font-size="2.0" fill="{RED}" text-anchor="middle" opacity="0.9">{c["name"]}</text>')
+        p.append(f'<text x="{x+9}" y="{y+10.4}" font-family="{SERIF}" font-size="5.8" fill="{RED}" text-anchor="middle">{ABBR[c["id"]]}</text>')
+        p.append(f'<text x="{x+9}" y="{y+14.2}" font-family="{SANS}" font-size="1.7" fill="{RED}" text-anchor="middle" opacity="0.75">2026</text>')
     p += [
-        f'<text x="168" y="26" font-family="{SERIF}" font-size="9.4" fill="{INK}" letter-spacing="1.4">十三輪 · 觀賽記錄</text>',
+        f'<text x="168" y="26" font-family="{SERIF}" font-size="9.4" fill="{INK}" letter-spacing="1.4">十三轮 · 观赛记录</text>',
         f'<text x="168" y="34" font-family="{SANS}" font-size="3.1" fill="{INK_SOFT}" letter-spacing="1.4">THIRTEEN MATCHDAYS</text>',
         f'<line x1="168" y1="42" x2="276" y2="42" stroke="{INK}" stroke-width="0.5" opacity="0.55"/>',
     ]
-    for t, x in [("輪次", 168), ("主場", 182), ("日期", 214), ("比分", 240), ("蓋章", 262)]:
+    for t, x in [("轮次", 168), ("主场", 182), ("日期", 214), ("比分", 240), ("盖章", 262)]:
         p.append(f'<text x="{x}" y="50" font-family="{SANS_M}" font-size="3.0" fill="{INK_SOFT}">{t}</text>')
     for i, c in enumerate(CITIES):
         y = 60 + i * 10.4
@@ -119,7 +125,7 @@ def passport():
         p.append(f'<text x="195" y="{y}" font-family="{SANS}" font-size="2.4" fill="{INK_SOFT}">{c["dudu"]}</text>')
         p.append(f'<line x1="214" y1="{y-0.7}" x2="236" y2="{y-0.7}" stroke="{INK}" stroke-width="0.2" opacity="0.3"/>')
         p.append(f'<line x1="240" y1="{y-0.7}" x2="256" y2="{y-0.7}" stroke="{INK}" stroke-width="0.2" opacity="0.3"/>')
-        p.append(D.seal(262, y - 6.2, 6.2, ABBR[c["id"]], opacity=0.3))
+        p.append(D.seal(262, y - 6.2, 6.2, ABBR[c["id"]], opacity=0.32))
     p.append(f'<text x="168" y="202" font-family="{SANS_M}" font-size="2.8" fill="{INK_SOFT}">观赛护照内页样张 · 非卖品 · 形象：苏嘟嘟 · 十三太保家族</text>')
     return D.html_page(D.svg_open(W, H) + "".join(p) + "</svg>", W, H)
 
@@ -138,7 +144,7 @@ def cards():
     for k, idx in enumerate([0, 4, 8]):
         c = CITIES[idx]
         p.append(f'<g transform="translate({22 + k * 88},{56})">')
-        p.append(f'<rect x="1.6" y="2.4" width="{cw}" height="{ch}" rx="2.2" fill="#000" opacity="0.35"/>')
+        p.append(f'<rect x="1.2" y="1.8" width="{cw}" height="{ch}" rx="2.2" fill="#000" opacity="0.22"/>')
         p.append(f'<rect x="0" y="0" width="{cw}" height="{ch}" rx="2.2" fill="{PAPER}"/>')
         p.append(f'<path d="M0,2.2 a2.2,2.2 0 0 1 2.2,-2.2 h{cw-4.4} a2.2,2.2 0 0 1 2.2,2.2 v49.8 h{-cw} z" fill="{D.mix(PAPER_2, c["color"], 0.16)}"/>')
         p.append(f'<g clip-path="url(#cc{k})">{D.figure(c, 0, 1.2, cw, 50.5)}</g>')
@@ -154,7 +160,68 @@ def cards():
         p.append('</g>')
     p += [
         f'<text x="20" y="168" font-family="{SERIF}" font-size="4.8" fill="#CFC9B8" letter-spacing="0.6">统一版式：上为影青釉人偶，下为城市名、朱印与口号；同一套栅格可延展至明信片、杯壶与毛绒吊牌。</text>',
-        f'<text x="20" y="180" font-family="{SANS_M}" font-size="3.3" fill="#A9A392" letter-spacing="0.4">系列套图（三）　收藏卡牌 63×88mm（标准扑克尺寸）　300dpi　JSCL-2026-IP-03</text>',
+        f'<text x="20" y="180" font-family="{SANS_M}" font-size="3.3" fill="#A9A392" letter-spacing="0.4">系列套图（四）　收藏卡牌 63×88mm（标准扑克尺寸）　300dpi　JSCL-2026-IP-04</text>',
     ]
     defs = "<defs>" + "".join(f'<clipPath id="cc{k}"><rect x="0" y="0" width="63" height="52"/></clipPath>' for k in range(3)) + "</defs>"
     return D.html_page(D.svg_open(W, H) + defs + "".join(p) + "</svg>", W, H)
+
+
+def postcards():
+    """A4 横：一张明信片的正面与背面（105×148mm，标准 10×15）。"""
+    W, H = 297.0, 210.0
+    cw, ch = 105.0, 148.0
+    p = [f'<rect x="0" y="0" width="{W}" height="{H}" fill="{PAPER}"/>']
+    # ---- 正面
+    fx, fy = 26.0, 30.0
+    c = CITIES[0]
+    p.append(f'<g transform="translate({fx},{fy})">')
+    p.append(f'<rect x="1.4" y="2.0" width="{cw}" height="{ch}" fill="#000" opacity="0.16"/>')
+    p.append(f'<rect x="0" y="0" width="{cw}" height="{ch}" fill="{D.mix(PAPER_2, c["color"], 0.16)}"/>')
+    p.append(f'<clipPath id="pcf"><rect x="0" y="0" width="{cw}" height="112"/></clipPath>')
+    p.append(f'<g clip-path="url(#pcf)">{D.figure(c, 0, 2, cw, 108)}</g>')
+    p.append(f'<rect x="4" y="4" width="{cw-8}" height="104" fill="none" stroke="{INK}" stroke-width="0.25" opacity="0.4"/>')
+    p.append(f'<text x="6" y="12" font-family="{SANS_M}" font-size="3.0" fill="{INK_SOFT}" letter-spacing="1.2">江苏 · 南京</text>')
+    p.append(f'<line x1="0" y1="112" x2="{cw}" y2="112" stroke="{INK}" stroke-width="0.4" opacity="0.6"/>')
+    p.append(f'<text x="6" y="126" font-family="{SERIF}" font-size="15.0" fill="{INK}" letter-spacing="1.4">南京</text>')
+    p.append(f'<text x="6" y="132" font-family="{SANS_M}" font-size="3.2" fill="{INK_SOFT}" letter-spacing="0.9">NANJING</text>')
+    p.append(f'<text x="6" y="142" font-family="{SERIF}" font-size="5.2" fill="{D.ink_of(c["color"])}" letter-spacing="0.6">鸭力全开</text>')
+    p.append(D.seal(cw - 15.0, 116.0, 10.0, ABBR[c["id"]]))
+    p.append('</g>')
+    # ---- 背面
+    bx, by = 166.0, 30.0
+    p.append(f'<g transform="translate({bx},{by})">')
+    p.append(f'<rect x="1.4" y="2.0" width="{cw}" height="{ch}" fill="#000" opacity="0.16"/>')
+    p.append(f'<rect x="0" y="0" width="{cw}" height="{ch}" fill="#FBF7EC"/>')
+    p.append(f'<rect x="0" y="0" width="{cw}" height="{ch}" fill="none" stroke="{INK}" stroke-width="0.25" opacity="0.35"/>')
+    # 邮票位
+    p.append(f'<rect x="{cw-26}" y="8" width="20" height="24" fill="none" stroke="{INK}" stroke-width="0.3" stroke-dasharray="1.2 1.0" opacity="0.55"/>')
+    p.append(f'<text x="{cw-16}" y="21" font-family="{SANS_M}" font-size="2.4" fill="{INK_SOFT}" text-anchor="middle">贴邮票处</text>')
+    # 邮编框
+    for i in range(6):
+        x = cw - 74 + i * 7.2
+        p.append(f'<rect x="{x}" y="8" width="6.2" height="7.4" fill="none" stroke="{RED}" stroke-width="0.25" opacity="0.75"/>')
+    p.append(f'<text x="{cw-74}" y="6.4" font-family="{SANS}" font-size="2.2" fill="{INK_SOFT}" letter-spacing="0.3">邮政编码</text>')
+    # 分隔竖线
+    p.append(f'<line x1="58" y1="8" x2="58" y2="{ch-10}" stroke="{INK}" stroke-width="0.25" opacity="0.35"/>')
+    # 收件人
+    for i, t in enumerate(["收", "件", "人"]):
+        p.append(f'<text x="62" y="{22 + i*11}" font-family="{SANS_M}" font-size="3.0" fill="{INK_SOFT}">{t}</text>')
+        p.append(f'<line x1="68" y1="{23 + i*11}" x2="{cw-6}" y2="{23 + i*11}" stroke="{INK}" stroke-width="0.2" opacity="0.28"/>')
+    # 左侧：一句话
+    p.append(f'<text x="6" y="16" font-family="{SERIF}" font-size="6.0" fill="{INK}" letter-spacing="0.6">一城一票</text>')
+    p.append(f'<text x="6" y="22" font-family="{SANS}" font-size="2.4" fill="{INK_SOFT}" letter-spacing="1.0">ONE CITY, ONE TICKET</text>')
+    p.append(f'<line x1="6" y1="26" x2="52" y2="26" stroke="{RED}" stroke-width="0.4"/>')
+    p.append(f'<text x="6" y="34" font-family="{SANS_M}" font-size="2.7" fill="{INK_SOFT}">十三座城市，十三张票。</text>')
+    p.append(f'<text x="6" y="38.4" font-family="{SANS_M}" font-size="2.7" fill="{INK_SOFT}">球票与邮票是同一件东西：</text>')
+    p.append(f'<text x="6" y="42.8" font-family="{SANS_M}" font-size="2.7" fill="{INK_SOFT}">打孔边、编号、日期、副券。</text>')
+    p.append(D.seal(6, 50, 9.0, "宁"))
+    p.append(f'<text x="6" y="{ch-16}" font-family="{SANS_M}" font-size="2.4" fill="{INK_SOFT}">寄件人</text>')
+    p.append(f'<line x1="6" y1="{ch-14}" x2="52" y2="{ch-14}" stroke="{INK}" stroke-width="0.2" opacity="0.28"/>')
+    p.append(f'<text x="6" y="{ch-8}" font-family="{SANS}" font-size="2.1" fill="{INK_SOFT}" opacity="0.7">JSCL · 2026 · SPECIMEN 非卖品</text>')
+    p.append('</g>')
+    # 说明
+    p += [
+        f'<text x="26" y="192" font-family="{SERIF}" font-size="4.6" fill="{INK}" letter-spacing="0.5">明信片 105×148mm（标准 10×15）：正面用同一枚票的画面语言，背面留邮政栏位与邮票位。</text>',
+        f'<text x="26" y="200" font-family="{SANS_M}" font-size="3.2" fill="{INK_SOFT}">系列套图（五）　JSCL-2026-IP-05　300dpi　本页为非卖品样张，不具邮资效力。</text>',
+    ]
+    return D.html_page(D.svg_open(W, H) + "".join(p) + "</svg>", W, H)
