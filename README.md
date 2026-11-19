@@ -5,7 +5,7 @@
 ## 这是什么
 
 赛道：IP 形象与设计（2026 苏超 AIGC 创作大赛）｜截止 2026-12-15｜全国、个人可报。
-四组成品：小版张（13 枚邮票）、主视觉海报、观赛护照跨页、收藏卡牌。
+五组成品：小版张（13 枚邮票）、主视觉海报、观赛护照跨页、收藏卡牌、明信片。
 
 ## 怎么跑
 
@@ -13,7 +13,7 @@
 py -3 src/cutout.py      # 人偶去背 + 按脚底线对齐（读 assets/art/city）
 py -3 src/tone.py        # 统一为影青单色釉（写 assets/art/glaze）
 py -3 build.py all       # 渲染四张成品到 out/（300dpi）
-py -3 verify.py --rebuild  # 146 条断言 + 重建字节一致
+py -3 verify.py --rebuild  # 150 条断言 + 重建字节一致
 py -3 src/export.py      # 投稿件：out/submit/*.jpg + source.zip
 ```
 
