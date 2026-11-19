@@ -1,0 +1,14 @@
+import { chromium } from 'playwright';
+const CHROME = 'C:/Users/张一/AppData/Local/ms-playwright/chromium-1248/chrome-win64/chrome.exe';
+const [,, url, out, w, h] = process.argv;
+const b = await chromium.launch({ executablePath: CHROME });
+const p = await b.newPage({ viewport: { width: +w, height: +h }, deviceScaleFactor: 1 });
+await p.goto(url, { waitUntil: 'networkidle' });
+await p.evaluate(() => document.fonts.ready);
+await p.waitForTimeout(500);
+await p.screenshot({ path: out, fullPage: true });
+const errs = await p.evaluate(() => [...document.images].filter(i => !i.complete || i.naturalWidth === 0).map(i => i.src));
+console.log('broken images:', JSON.stringify(errs));
+const overflow = await p.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+console.log('h-overflow px:', overflow);
+await b.close();

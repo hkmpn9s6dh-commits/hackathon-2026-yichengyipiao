@@ -1,0 +1,11 @@
+import { chromium } from 'playwright';
+const CHROME = 'C:/Users/张一/AppData/Local/ms-playwright/chromium-1248/chrome-win64/chrome.exe';
+const [,, url, out, w, h, scale] = process.argv;
+const b = await chromium.launch({ executablePath: CHROME });
+const p = await b.newPage({ viewport: { width: +w, height: +h }, deviceScaleFactor: +(scale || 1) });
+await p.goto(url, { waitUntil: 'networkidle' });
+await p.evaluate(() => document.fonts.ready);
+await p.waitForTimeout(400);
+await p.screenshot({ path: out, clip: { x: 0, y: 0, width: +w, height: +h } });
+await b.close();
+console.log('shot', out);

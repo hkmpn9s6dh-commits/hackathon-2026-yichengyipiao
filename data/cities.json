@@ -1,0 +1,15 @@
+[
+  {"no": 1,  "id": "nanjing",     "name": "南京", "pinyin": "NANJING",     "dudu": "鸭嘟嘟", "totem": "盐水鸭",       "slogan": "鸭力全开", "color": "#8C3A2E"},
+  {"no": 2,  "id": "wuxi",        "name": "无锡", "pinyin": "WUXI",        "dudu": "甜嘟嘟", "totem": "阳山水蜜桃",   "slogan": "甜到终场", "color": "#C0705F"},
+  {"no": 3,  "id": "xuzhou",      "name": "徐州", "pinyin": "XUZHOU",      "dudu": "虎嘟嘟", "totem": "封侯虎",       "slogan": "虎啸汉风", "color": "#A8792C"},
+  {"no": 4,  "id": "changzhou",   "name": "常州", "pinyin": "CHANGZHOU",   "dudu": "龙嘟嘟", "totem": "龙城",         "slogan": "龙城再起", "color": "#2E5D57"},
+  {"no": 5,  "id": "suzhou",      "name": "苏州", "pinyin": "SUZHOU",      "dudu": "蟹嘟嘟", "totem": "阳澄湖大闸蟹", "slogan": "蟹逅三分", "color": "#3E6B4F"},
+  {"no": 6,  "id": "nantong",     "name": "南通", "pinyin": "NANTONG",     "dudu": "狼嘟嘟", "totem": "狼山",         "slogan": "狼山听哨", "color": "#4A5A66"},
+  {"no": 7,  "id": "lianyungang", "name": "连云港","pinyin": "LIANYUNGANG", "dudu": "猴嘟嘟", "totem": "花果山",       "slogan": "筋斗云开", "color": "#2C5D7A"},
+  {"no": 8,  "id": "huaian",      "name": "淮安", "pinyin": "HUAI'AN",     "dudu": "浪嘟嘟", "totem": "运河漕运",     "slogan": "浪起运河", "color": "#2F6B6B"},
+  {"no": 9,  "id": "yancheng",    "name": "盐城", "pinyin": "YANCHENG",    "dudu": "鹿嘟嘟", "totem": "麋鹿",         "slogan": "鹿角顶球", "color": "#8A6A3E"},
+  {"no": 10, "id": "yangzhou",    "name": "扬州", "pinyin": "YANGZHOU",    "dudu": "鹅嘟嘟", "totem": "盐水鹅",       "slogan": "鹅颈昂首", "color": "#B08A3E"},
+  {"no": 11, "id": "zhenjiang",   "name": "镇江", "pinyin": "ZHENJIANG",   "dudu": "醋嘟嘟", "totem": "镇江香醋",     "slogan": "一坛定音", "color": "#6B3A2E"},
+  {"no": 12, "id": "taizhou",     "name": "泰州", "pinyin": "TAIZHOU",     "dudu": "凤嘟嘟", "totem": "凤凰城",       "slogan": "凤鸣看台", "color": "#9C3B32"},
+  {"no": 13, "id": "suqian",      "name": "宿迁", "pinyin": "SUQIAN",      "dudu": "霸嘟嘟", "totem": "西楚霸王",     "slogan": "霸气开球", "color": "#3A3A4A"}
+]
