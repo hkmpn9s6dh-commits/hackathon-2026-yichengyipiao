@@ -54,7 +54,7 @@ def poster():
         ny += 21
     # 系列其余三张，横排做样本
     for k, idx in enumerate([4, 8, 12]):
-        p.append(f'<g transform="translate({x0 + k*60},{top + 116}) rotate({[-2,0,2][k]})">'
+        p.append(f'<g transform="translate({x0 + k*60},{top + 116}) rotate({[0,0,0][k]})">'
                  f'<g transform="scale(0.94)">{D.stamp(CITIES[idx], 60, f"ps{k}", fill=PAPER)}</g></g>')
     p.append(f'<text x="{x0}" y="{top + 196}" font-family="{SANS_M}" font-size="4.4" fill="#BDB6A4" letter-spacing="0.3">苏州 · 盐城 · 宿迁　同版式延展样本</text>')
 
@@ -103,7 +103,7 @@ def passport():
         col = i % 5
         row_w = (n_in_row - 1) * 25.4 + 17.2
         x = 22 + (144 - row_w) / 2 + col * 25.4
-        y = 142 + row * 25
+        y = 136 + row * 25
         p.append(f'<circle cx="{x+9}" cy="{y+8}" r="8.6" fill="none" stroke="{RED}" stroke-width="0.5" opacity="0.8"/>')
         p.append(f'<circle cx="{x+9}" cy="{y+8}" r="7.4" fill="none" stroke="{RED}" stroke-width="0.22" opacity="0.5"/>')
         p.append(f'<text x="{x+9}" y="{y+5.6}" font-family="{SANS_M}" font-size="2.0" fill="{RED}" text-anchor="middle" opacity="0.9">{c["name"]}</text>')
@@ -193,20 +193,21 @@ def postcards():
     p.append(f'<rect x="1.4" y="2.0" width="{cw}" height="{ch}" fill="#000" opacity="0.16"/>')
     p.append(f'<rect x="0" y="0" width="{cw}" height="{ch}" fill="#FBF7EC"/>')
     p.append(f'<rect x="0" y="0" width="{cw}" height="{ch}" fill="none" stroke="{INK}" stroke-width="0.25" opacity="0.35"/>')
-    # 邮票位
-    p.append(f'<rect x="{cw-26}" y="8" width="20" height="24" fill="none" stroke="{INK}" stroke-width="0.3" stroke-dasharray="1.2 1.0" opacity="0.55"/>')
-    p.append(f'<text x="{cw-16}" y="21" font-family="{SANS_M}" font-size="2.4" fill="{INK_SOFT}" text-anchor="middle">贴邮票处</text>')
-    # 邮编框
-    for i in range(6):
-        x = cw - 74 + i * 7.2
-        p.append(f'<rect x="{x}" y="8" width="6.2" height="7.4" fill="none" stroke="{RED}" stroke-width="0.25" opacity="0.75"/>')
-    p.append(f'<text x="{cw-74}" y="6.4" font-family="{SANS}" font-size="2.2" fill="{INK_SOFT}" letter-spacing="0.3">邮政编码</text>')
+    # 邮票位（右上）
+    p.append(f'<rect x="{cw-26}" y="6" width="20" height="23" fill="none" stroke="{INK}" stroke-width="0.3" stroke-dasharray="1.2 1.0" opacity="0.5"/>')
+    p.append(f'<text x="{cw-16}" y="18" font-family="{SANS_M}" font-size="2.4" fill="{INK_SOFT}" text-anchor="middle">贴邮票处</text>')
     # 分隔竖线
-    p.append(f'<line x1="58" y1="8" x2="58" y2="{ch-10}" stroke="{INK}" stroke-width="0.25" opacity="0.35"/>')
-    # 收件人
-    for i, t in enumerate(["收", "件", "人"]):
-        p.append(f'<text x="62" y="{22 + i*11}" font-family="{SANS_M}" font-size="3.0" fill="{INK_SOFT}">{t}</text>')
-        p.append(f'<line x1="68" y1="{23 + i*11}" x2="{cw-6}" y2="{23 + i*11}" stroke="{INK}" stroke-width="0.2" opacity="0.28"/>')
+    p.append(f'<line x1="56" y1="6" x2="56" y2="{ch-8}" stroke="{INK}" stroke-width="0.25" opacity="0.32"/>')
+    # 收件人三行
+    p.append(f'<text x="60" y="14" font-family="{SANS_M}" font-size="2.6" fill="{INK_SOFT}">收件人</text>')
+    for i in range(3):
+        x_end = cw - 6 if i == 2 else 76
+        p.append(f'<line x1="60" y1="{20 + i*10}" x2="{x_end}" y2="{20 + i*10}" stroke="{INK}" stroke-width="0.2" opacity="0.26"/>')
+    # 邮编六格（贴邮票处下方，右对齐）
+    p.append(f'<text x="60" y="56" font-family="{SANS_M}" font-size="2.4" fill="{INK_SOFT}">邮政编码</text>')
+    for i in range(6):
+        x = 60 + i * 6.0
+        p.append(f'<rect x="{x}" y="58" width="5.2" height="6.6" fill="none" stroke="{RED}" stroke-width="0.25" opacity="0.7"/>')
     # 左侧：一句话
     p.append(f'<text x="6" y="16" font-family="{SERIF}" font-size="6.0" fill="{INK}" letter-spacing="0.6">一城一票</text>')
     p.append(f'<text x="6" y="22" font-family="{SANS}" font-size="2.4" fill="{INK_SOFT}" letter-spacing="1.0">ONE CITY, ONE TICKET</text>')

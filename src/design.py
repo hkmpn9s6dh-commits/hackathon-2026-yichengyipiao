@@ -122,7 +122,7 @@ def stamp(city, S=60.0, uid="s", fill=None):
     w, h = S, S * 1.25
     fill = fill or PAPER
     panel_h = 39.6 * u
-    tint = mix(PAPER_2, city["color"], 0.13)
+    tint = mix(PAPER_2, city["color"], 0.19)
     return f'''<g class="stamp" data-city="{city["id"]}">
   <g mask="url(#perf{uid})">
     <rect x="0" y="0" width="{w}" height="{h}" fill="{fill}"/>

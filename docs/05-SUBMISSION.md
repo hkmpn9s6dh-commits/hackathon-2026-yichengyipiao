@@ -21,7 +21,8 @@
 | 2 | `out/submit/02-poster.jpg` | 主视觉海报（A2） | 见下 |
 | 3 | `out/submit/03-passport.jpg` | 观赛护照跨页（A4 横） | 见下 |
 | 4 | `out/submit/04-cards.jpg` | 收藏卡牌三联（63×88mm） | 见下 |
-| 5 | `out/submit/source.zip` | **高清分层源文件**：四件的 SVG（命名图层 + 内嵌字体子集）+ 十三只人偶 PNG + 说明 | 见下 |
+| 5 | `out/submit/05-postcard.jpg` | 明信片正反面（105×148mm） | 见下 |
+| 6 | `out/submit/source.zip` | **高清分层源文件**：四件的 SVG（命名图层 + 内嵌字体子集）+ 十三只人偶 PNG + 说明 | 见下 |
 
 四张图都是 300 dpi、单张 < 20 MB（官方上限）；`source.zip` 若超过平台附件上限，改传网盘链接并把链接写进"创作说明"。
 
